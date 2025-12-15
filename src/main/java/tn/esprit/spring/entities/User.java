@@ -3,11 +3,15 @@ package tn.esprit.spring.entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "t_user")
+@Data  // Generates getters, setters, toString, equals, hashCode (use cautiously with JPA relationships)
+@NoArgsConstructor  // Required for JPA persistence
+@AllArgsConstructor  // Full constructor
+@Builder  // Builder pattern for object creation
 public class User implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -28,75 +32,8 @@ public class User implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	public User() { }
-
-	public User(String firstName, String lastName, Date dateNaissance, Role role) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dateNaissance = dateNaissance;
-		this.role = role;
-	}
-
-	public User(Long id, String firstName, String lastName, Date dateNaissance, Role role) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dateNaissance = dateNaissance;
-		this.role = role;
-	}
-
-	// Getters & Setters
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Date getDateNaissance() {
-		return dateNaissance;
-	}
-
-	public void setDateNaissance(Date dateNaissance) {
-		this.dateNaissance = dateNaissance;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	// ✅ Méthode utilisée par le DTO
+	// Custom method for DTO compatibility
 	public String getUsername() {
 		return firstName + "." + lastName;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id +
-				", firstName=" + firstName +
-				", lastName=" + lastName +
-				", dateNaissance=" + dateNaissance +
-				", role=" + role + "]";
 	}
 }

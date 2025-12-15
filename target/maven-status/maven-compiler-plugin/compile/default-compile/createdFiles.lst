@@ -10,3 +10,4 @@ tn/esprit/spring/control/UserRestControl.class
 tn/esprit/spring/dto/UserDTO.class
 tn/esprit/spring/services/IUserService.class
 tn/esprit/spring/entities/User.class
+tn/esprit/spring/entities/User$UserBuilder.class
