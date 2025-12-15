@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  mysqldb:
+    image: mysql:latest
+    container_name: mysql-timesheet-v2
+    restart: "always"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: timesheet-devops-db
+    ports:
+      - "3306:3306"
+    volumes:
+      - timesheetvol:/var/lib/mysql
+    networks:
+      - timesheetnet
+
+  timesheet:
+    depends_on:
+      - mysqldb
+    image: timesheet-dinamechergui-4twin4:latest
+    container_name: timesheet-app
+    restart: no
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/timesheet-devops-db?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin123
+    stdin_open: true
+    tty: true
+    networks:
+      - timesheetnet
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysqldb
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: admin123
+    networks:
+      - timesheetnet
+
+volumes:
+  timesheetvol:
+
+networks:
+  timesheetnet:

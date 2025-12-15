@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: timesheet-config
+  namespace: chap4
+data:
+  SPRING_DATASOURCE_URL: jdbc:mysql://mysql-serv:3306/timesheet
+  SPRING_DATASOURCE_USERNAME: root
