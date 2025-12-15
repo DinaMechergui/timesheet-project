@@ -14,13 +14,13 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "first_name") // correspond à la colonne MySQL first_name
+	@Column(name = "first_name")
 	private String firstName;
 
-	@Column(name = "last_name")  // correspond à la colonne MySQL last_name
+	@Column(name = "last_name")
 	private String lastName;
 
-	@Column(name = "date_naissance") // correspond à la colonne MySQL date_naissance
+	@Column(name = "date_naissance")
 	@Temporal(TemporalType.DATE)
 	private Date dateNaissance;
 
@@ -45,27 +45,58 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
-	// Getters et setters
-	public Long getId() { return id; }
-	public void setId(Long id) { this.id = id; }
+	// Getters & Setters
+	public Long getId() {
+		return id;
+	}
 
-	public String getFirstName() { return firstName; }
-	public void setFirstName(String firstName) { this.firstName = firstName; }
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
 	public String getLastName() {
-		return lastName + "-v1";
+		return lastName;
 	}
-	public void setLastName(String lastName) { this.lastName = lastName; }
 
-	public Date getDateNaissance() { return dateNaissance; }
-	public void setDateNaissance(Date dateNaissance) { this.dateNaissance = dateNaissance; }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-	public Role getRole() { return role; }
-	public void setRole(Role role) { this.role = role; }
+	public Date getDateNaissance() {
+		return dateNaissance;
+	}
+
+	public void setDateNaissance(Date dateNaissance) {
+		this.dateNaissance = dateNaissance;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	// ✅ Méthode utilisée par le DTO
+	public String getUsername() {
+		return firstName + "." + lastName;
+	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", dateNaissance=" + dateNaissance + ", role=" + role + "]";
+		return "User [id=" + id +
+				", firstName=" + firstName +
+				", lastName=" + lastName +
+				", dateNaissance=" + dateNaissance +
+				", role=" + role + "]";
 	}
 }
